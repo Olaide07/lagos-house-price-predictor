@@ -5,8 +5,8 @@ A machine learning web application that predicts house prices in Lagos based on 
 
 ## Live App
 
-[Click here to use the app](https://your-app-link.streamlit.app)
-## Live app coming soon
+[Click here to use the app](https://lagos-house-price-predictor.streamlit.app/)
+
 ---
 ## Project Overview
 
