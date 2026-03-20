@@ -69,6 +69,8 @@ This was solved by:
 
 ---
 
+```
+
 ## Project Structure
 lagos-house-price-predictor/
 │
@@ -77,6 +79,7 @@ lagos-house-price-predictor/
 ├── X_columns.pkl # Feature columns
 ├── requirements.txt # Dependencies
 └── README.md # Project documentation
+
 ```
 
 
