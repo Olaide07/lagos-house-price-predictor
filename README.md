@@ -43,7 +43,7 @@ This project uses machine learning to estimate house prices in Lagos, Nigeria. I
 ```
 Lagos-House-Price-Predictor/
 │
-├── Lagos_app.py # Streamlit application
+├── lagos_app.py # Streamlit application
 ├── final_model.pkl # Trained machine learning model
 ├── X_columns.pkl # Feature columns used for prediction
 ├── requirements.txt # Project dependencies
