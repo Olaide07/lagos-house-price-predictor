@@ -4,12 +4,17 @@ import joblib
 import os
 
 # ===============================
-# LOAD MODEL
+# LOAD MODEL (CACHED)
 # ===============================
 BASE_DIR = os.path.dirname(__file__)
 
-model = joblib.load(os.path.join(BASE_DIR, "final_model.pkl"))
-X_columns = joblib.load(os.path.join(BASE_DIR, "X_columns.pkl"))
+@st.cache_resource
+def load_model():
+    model = joblib.load(os.path.join(BASE_DIR, "final_model.pkl"))
+    columns = joblib.load(os.path.join(BASE_DIR, "X_columns.pkl"))
+    return model, columns
+
+model, X_columns = load_model()
 
 # ===============================
 # PAGE CONFIG
@@ -37,7 +42,7 @@ locations = [col.replace("Location_", "") for col in X_columns if col.startswith
 location = st.sidebar.selectbox("Location", locations)
 
 # ===============================
-# FEATURE ENGINEERING (MATCH TRAINING)
+# FEATURE ENGINEERING
 # ===============================
 location_rank = {
     "Banana Island": 10,
@@ -64,7 +69,6 @@ input_dict = {
     "New_Build": 1 if new_build == "Yes" else 0,
     "In_Estate": 1 if in_estate == "Yes" else 0,
 
-    # FINAL FEATURES
     "Location_Rank": loc_rank,
     "Final_Power": bedrooms * (loc_rank ** 3),
     "Bed_Bath_Ratio": bathrooms / (bedrooms + 1)
@@ -83,19 +87,22 @@ for col in X_columns:
 input_df = pd.DataFrame([input_dict])[X_columns]
 
 # ===============================
-# PREDICTION
+# PREDICTION FUNCTION
 # ===============================
 def predict_price(model, data):
     return model.predict(data)[0]
 
 # ===============================
-# BUTTON
+# PREDICT BUTTON (WITH SPINNER)
 # ===============================
-if st.button("Predict Price"):
-    price = predict_price(model, input_df)
+predict_button = st.button("Predict Price")
+
+if predict_button:
+    with st.spinner("Predicting price..."):
+        price = predict_price(model, input_df)
 
     st.success(f"💰 Estimated Price: ₦{price:,.0f}")
-    st.info("⚠️ Prices are estimates based on historical Lagos housing data.")
+    st.info("⚠️ Prices are estimates based on Lagos housing data.")
 
 # ===============================
 # FOOTER
