@@ -6,7 +6,7 @@ This project goes beyond basic modeling by incorporating domain knowledge of Lag
 ---
 ## Live App
 
- [Click here to use the app](https://lagos-house-price-predictor.streamlit.app/)
+ https://lagos-house-price-predictor.streamlit.app/
 ---
 
 ## Project Overview
